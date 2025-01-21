@@ -2,6 +2,8 @@
 name = "pandoc-mermaid-selenium-filter"
 version = "0.1.0"
 description = "A Pandoc filter that converts Mermaid code blocks to images using Selenium"
+long_description = "file: README.md"
+long_description_content_type = "text/markdown"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
