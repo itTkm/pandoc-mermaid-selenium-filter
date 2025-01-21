@@ -1,0 +1,3 @@
+"""
+Pandoc Mermaid Filter package
+"""

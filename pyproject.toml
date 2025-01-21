@@ -1,0 +1,17 @@
+[project]
+name = "pandoc-mermaid-selenium-filter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandocfilters>=1.5.1",
+    "selenium>=4.27.1",
+    "webdriver-manager>=4.0.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+]
