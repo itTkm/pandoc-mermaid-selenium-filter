@@ -1,31 +1,31 @@
-# Mermaid フィルターのテスト
+# Testing Mermaid Filter
 
-以下は簡単なフローチャートの例です：
+Here's a simple flowchart example:
 
 ```mermaid
 graph TD
-    A[開始] --> B{条件}
-    B -->|Yes| C[処理1]
-    B -->|No| D[処理2]
-    C --> E[終了]
+    A[Start] --> B{Condition}
+    B -->|Yes| C[Process 1]
+    B -->|No| D[Process 2]
+    C --> E[End]
     D --> E
 ```
 
-以下はシーケンス図の例です：
+Here's a sequence diagram example:
 
 ```mermaid
 sequenceDiagram
-    participant ブラウザ
-    participant サーバー
-    participant データベース
+    participant Browser
+    participant Server
+    participant Database
 
-    ブラウザ->>サーバー: リクエスト送信
-    サーバー->>データベース: クエリ実行
-    データベース-->>サーバー: 結果返却
-    サーバー-->>ブラウザ: レスポンス送信
+    Browser->>Server: Send Request
+    Server->>Database: Execute Query
+    Database-->>Server: Return Result
+    Server-->>Browser: Send Response
 ```
 
-以下はクラス図の例です：
+Here's a class diagram example:
 
 ```mermaid
 classDiagram

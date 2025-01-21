@@ -4,46 +4,46 @@ from src.pandoc_mermaid_selenium_filter.mermaid_converter import MermaidConverte
 
 
 def test_mermaid_converter_initialization():
-    """MermaidConverterの初期化テスト"""
+    """Test MermaidConverter initialization"""
     converter = MermaidConverter()
     assert isinstance(converter, MermaidConverter)
     assert "mermaid.min.js" in converter.html_template
 
 
 def test_convert_to_png(temp_dir, sample_mermaid_code):
-    """PNG変換機能のテスト"""
+    """Test PNG conversion functionality"""
     output_path = os.path.join(temp_dir, "test_output.png")
     converter = MermaidConverter()
 
-    # PNG変換を実行
+    # Execute PNG conversion
     converter.convert_to_png(sample_mermaid_code, output_path)
 
-    # ファイルが生成されたことを確認
+    # Verify file was generated
     assert os.path.exists(output_path)
     assert os.path.getsize(output_path) > 0
 
 
 def test_convert_to_png_with_html_save(temp_dir, sample_mermaid_code):
-    """HTML保存オプション付きのPNG変換テスト"""
+    """Test PNG conversion with HTML save option"""
     output_path = os.path.join(temp_dir, "test_output.png")
     converter = MermaidConverter()
 
-    # HTML保存オプションを有効にしてPNG変換を実行
+    # Execute PNG conversion with HTML save option enabled
     converter.convert_to_png(sample_mermaid_code, output_path, save_html=True)
 
-    # PNGファイルとHTMLファイルの両方が生成されたことを確認
+    # Verify both PNG and HTML files were generated
     assert os.path.exists(output_path)
     html_path = output_path.rsplit(".", 1)[0] + ".html"
     assert os.path.exists(html_path)
 
-    # HTMLファイルの内容を確認
+    # Check HTML file contents
     with open(html_path, "r") as f:
         html_content = f.read()
-        # 必要なスクリプトとライブラリが含まれていることを確認
+        # Verify required scripts and libraries are included
         assert "mermaid.min.js" in html_content
         assert "mermaid.initialize" in html_content
 
-        # Mermaidコードが含まれていることを確認（空白と改行を正規化して比較）
+        # Verify Mermaid code is included (normalize whitespace and newlines for comparison)
         normalized_code = "".join(sample_mermaid_code.split())
         normalized_content = "".join(html_content.split())
         assert normalized_code in normalized_content

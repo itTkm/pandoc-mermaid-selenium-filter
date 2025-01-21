@@ -7,7 +7,7 @@ import pytest
 
 @pytest.fixture
 def temp_dir():
-    """一時ディレクトリを作成するフィクスチャ"""
+    """Fixture to create a temporary directory"""
     with tempfile.TemporaryDirectory() as tmp_dir:
         old_cwd = os.getcwd()
         os.chdir(tmp_dir)
@@ -17,20 +17,20 @@ def temp_dir():
 
 @pytest.fixture
 def sample_mermaid_code():
-    """サンプルのMermaidコード"""
+    """Sample Mermaid code"""
     return """
     graph TD
-        A[開始] --> B{条件}
-        B -->|Yes| C[処理1]
-        B -->|No| D[処理2]
-        C --> E[終了]
+        A[Start] --> B{Condition}
+        B -->|Yes| C[Process 1]
+        B -->|No| D[Process 2]
+        C --> E[End]
         D --> E
     """
 
 
 @pytest.fixture
 def sample_python_code():
-    """サンプルのPythonコード"""
+    """Sample Python code"""
     return '''
     def example_function():
         """Example docstring"""
@@ -38,7 +38,7 @@ def sample_python_code():
         y = 2
         return x + y
 
-    # コメント行
+    # Comment line
     result = example_function()
     print(f"Result: {result}")
     '''
