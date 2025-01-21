@@ -47,12 +47,12 @@ uv add --dev pytest pytest-cov
    ```bash
    # HTML
    pandoc example/example.md \
-      --filter ./filter.py \
+      --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
       -o example/output.html
 
    # PDF
    pandoc example/example.md \
-      --filter ./filter.py \
+      --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
       -o example/output.pdf
    ```
 
@@ -61,7 +61,7 @@ uv add --dev pytest pytest-cov
 
    ```bash
    pandoc example/example.md \
-      --filter ./filter.py \
+      --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
       -o example/output.pdf \
       --pdf-engine lualatex \
       -V documentclass=ltjarticle \
@@ -85,9 +85,5 @@ uv add --dev pytest pytest-cov
 以下のコマンドでテストを実行できます：
 
 ```bash
-# 通常のテスト実行
-pytest tests/
-
-# カバレッジレポート付きでテストを実行
-pytest tests/ -v --cov=. --cov-report=term-missing
+uv run pytest
 ```
