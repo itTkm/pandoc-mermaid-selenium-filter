@@ -64,6 +64,7 @@ Although many similar filters with the same functionality are already available,
    ```
 
    > [!NOTE]
+   >
    > For generating PDFs with Japanese text, add the following options.
    > Note that you need to install `collection-langjapanese` beforehand to add Japanese support to Pandoc.
    >
