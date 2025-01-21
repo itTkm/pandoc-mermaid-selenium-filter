@@ -94,3 +94,7 @@ You can run tests with the following command:
 ```bash
 uv run pytest
 ```
+
+## License
+
+This library is licensed under the [MIT License](./LICENSE).
