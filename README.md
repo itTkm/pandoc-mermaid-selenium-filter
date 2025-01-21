@@ -54,12 +54,12 @@ Although many similar filters with the same functionality are already available,
    ```bash
    # HTML
    pandoc example/example.md \
-      --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
+      --filter pandoc-mermaid-selenium-filter \
       -o example/output.html
 
    # PDF
    pandoc example/example.md \
-      --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
+      --filter pandoc-mermaid-selenium-filter \
       -o example/output.pdf
    ```
 
@@ -69,7 +69,7 @@ Although many similar filters with the same functionality are already available,
    >
    > ```bash
    > pandoc example/example.md \
-   >    --filter ./src/pandoc_mermaid_selenium_filter/filter.py \
+   >    --filter pandoc-mermaid-selenium-filter \
    >    -o example/output.pdf \
    >    --pdf-engine lualatex \
    >    -V documentclass=ltjarticle \
