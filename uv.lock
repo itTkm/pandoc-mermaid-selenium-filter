@@ -167,14 +167,14 @@ wheels = [
 [[package]]
 name = "pandoc-mermaid-selenium-filter"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "pandocfilters" },
     { name = "selenium" },
     { name = "webdriver-manager" },
 ]
 
-[package.dev-dependencies]
+[package.optional-dependencies]
 dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -183,14 +183,10 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "pandocfilters", specifier = ">=1.5.1" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.4" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.0.0" },
     { name = "selenium", specifier = ">=4.27.1" },
     { name = "webdriver-manager", specifier = ">=4.0.2" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8.3.4" },
-    { name = "pytest-cov", specifier = ">=6.0.0" },
 ]
 
 [[package]]

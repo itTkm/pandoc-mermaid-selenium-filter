@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run pytest -v --junitxml=pytest.xml --cov-report=term-missing --cov=. tests/ | tee pytest-coverage.txt
+          uv run pytest | tee pytest-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@v1.1.47
