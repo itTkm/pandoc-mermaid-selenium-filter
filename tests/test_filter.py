@@ -1,6 +1,6 @@
 import os
 
-from filter import mermaid
+from src.pandoc_mermaid_selenium_filter.filter import mermaid
 
 
 def test_mermaid_filter_with_non_mermaid_block():

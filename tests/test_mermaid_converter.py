@@ -1,6 +1,6 @@
 import os
 
-from mermaid_converter import MermaidConverter
+from src.pandoc_mermaid_selenium_filter.mermaid_converter import MermaidConverter
 
 
 def test_mermaid_converter_initialization():

@@ -4,7 +4,7 @@ import sys
 
 from pandocfilters import Image, Para, get_filename4code, toJSONFilter
 
-from mermaid_converter import MermaidConverter
+from .mermaid_converter import MermaidConverter
 
 
 def mermaid(key, value, format, _):
