@@ -29,9 +29,11 @@ jobs:
           uv sync --all-extras --dev
 
       - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Check Chrome version
         run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser
+          chrome --version
 
       - name: Run tests
         run: |
