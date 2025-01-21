@@ -78,22 +78,22 @@ class MermaidConverter:
         self, mermaid_code: str, output_path: str, save_html: bool = False
     ):
         """
-        Mermaid記法の文字列をPNG画像に変換する
+        Convert Mermaid syntax string to PNG image
 
         Args:
-            mermaid_code (str): Mermaid記法の文字列
-            output_path (str): 出力するPNG画像のパス
+            mermaid_code (str): Mermaid syntax string
+            output_path (str): Output path for the PNG image
         """
-        # ChromeOptionsの設定
+        # Configure ChromeOptions
         chrome_options = Options()
-        chrome_options.add_argument("--headless=new")  # 新しいheadlessモード
+        chrome_options.add_argument("--headless=new")  # New headless mode
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--window-size=1600,1200")  # 初期サイズ（後で調整）
+        chrome_options.add_argument("--window-size=1600,1200")
         chrome_options.add_argument("--disable-software-rasterizer")
 
-        # 一時HTMLファイルの作成
+        # Create temporary HTML file
         with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
             html_content = self.html_template.format(diagram_code=mermaid_code)
             f.write(html_content)
@@ -102,7 +102,7 @@ class MermaidConverter:
         try:
             print(f"Starting conversion for: {output_path}", file=sys.stderr)
 
-            # WebDriverの初期化
+            # Initialize WebDriver
             try:
                 print("Installing ChromeDriver...", file=sys.stderr)
                 driver_path = ChromeDriverManager().install()
@@ -125,24 +125,24 @@ class MermaidConverter:
                 print(f"Traceback:\n{traceback.format_exc()}", file=sys.stderr)
                 raise
 
-            # HTMLファイルを開く
+            # Open HTML file
             print(f"Opening HTML file: {temp_html_path}", file=sys.stderr)
             driver.get(f"file://{temp_html_path}")
 
-            # Mermaid図の描画完了を待機
+            # Wait for Mermaid diagram rendering to complete
             print("Waiting for mermaid element...", file=sys.stderr)
             try:
                 svg_element = WebDriverWait(driver, 10).until(
                     EC.presence_of_element_located((By.TAG_NAME, "svg"))
                 )
 
-                # エラーメッセージの確認
+                # Check for error messages
                 error_element = driver.find_elements(By.CLASS_NAME, "error-icon")
                 if error_element:
                     error_text = driver.find_element(By.CLASS_NAME, "error-text").text
                     raise Exception(f"Mermaid syntax error: {error_text}")
 
-                # コンテナ要素のスクリーンショットを取得
+                # Take screenshot of svg element
                 print(f"Taking screenshot to: {output_path}", file=sys.stderr)
                 svg_element.screenshot(output_path)
 
@@ -158,31 +158,31 @@ class MermaidConverter:
                 raise
 
         finally:
-            # ブラウザを閉じる
+            # Close browser
             driver.quit()
-            # HTMLファイルを保存するかどうか
+            # Save HTML file if requested
             if save_html:
                 html_output_path = output_path.rsplit(".", 1)[0] + ".html"
                 import shutil
 
                 shutil.copy2(temp_html_path, html_output_path)
                 print(f"HTML file saved: {html_output_path}", file=sys.stderr)
-            # 一時ファイルを削除
+            # Delete temporary file
             os.unlink(temp_html_path)
 
 
 def main():
-    # サンプルのMermaid図
+    # Sample Mermaid diagram
     sample_diagram = """
     graph TD
-        A[開始] --> B{条件}
-        B -->|Yes| C[処理1]
-        B -->|No| D[処理2]
-        C --> E[終了]
+        A[Start] --> B{Condition}
+        B -->|Yes| C[Process 1]
+        B -->|No| D[Process 2]
+        C --> E[End]
         D --> E
     """
 
-    # PNG画像に変換
+    # Convert to PNG image
     converter = MermaidConverter()
     converter.convert_to_png(sample_diagram, "output.png")
 

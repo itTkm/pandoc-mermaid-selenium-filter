@@ -11,15 +11,15 @@ def mermaid(key, value, format, _):
     if key == "CodeBlock":
         [[ident, classes, keyvals], code] = value
         if "mermaid" in classes:
-            # ファイル名の生成（mermaid-images/[hash].png の形式）
+            # Generate filename (in the format: mermaid-images/[hash].png)
             filePath = get_filename4code("mermaid", code) + ".png"
 
-            # 出力ディレクトリの作成
+            # Create output directory
             output_dir = os.path.dirname(filePath)
             if not os.path.exists(output_dir):
                 os.makedirs(output_dir)
 
-            # Mermaid図をPNGに変換
+            # Convert Mermaid diagram to PNG
             try:
                 if not os.path.isfile(filePath):
                     print(f"Converting diagram to {filePath}", file=sys.stderr)
@@ -34,7 +34,7 @@ def mermaid(key, value, format, _):
 
                 if os.path.isfile(filePath):
                     print(f"Image generated successfully: {filePath}", file=sys.stderr)
-                    # 相対パスに変換
+                    # Convert to relative path
                     rel_path = os.path.relpath(filePath, os.getcwd())
                     return Para([Image([ident, [], keyvals], [], [rel_path, ""])])
                 else:
