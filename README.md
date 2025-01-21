@@ -1,5 +1,11 @@
 # Pandoc Mermaid Filter
 
+![PyPI - Version](https://img.shields.io/pypi/v/pandoc-mermaid-selenium-filter)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pandoc-mermaid-selenium-filter)
+![GitHub License](https://img.shields.io/github/license/itTkm/pandoc-mermaid-selenium-filter)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/itTkm/pandoc-mermaid-selenium-filter/test.yml?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/itTkm/pandoc-mermaid-selenium-filter/badge.svg?branch=main)](https://coveralls.io/github/itTkm/pandoc-mermaid-selenium-filter?branch=main)
+
 このフィルターは、Markdown 文書内の Mermaid 記法のコードブロックを画像に変換する Pandoc フィルターです。
 
 ## 必要要件
