@@ -11,5 +11,11 @@
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "charliermarsh.ruff"
-  }
+  },
+  "cSpell.words": [
+    "junitxml",
+    "MishaKav",
+    "pandoc",
+    "pytest"
+  ]
 }
