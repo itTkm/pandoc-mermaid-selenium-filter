@@ -93,6 +93,11 @@ class MermaidConverter:
         chrome_options.add_argument("--window-size=1600,1200")
         chrome_options.add_argument("--disable-software-rasterizer")
 
+        # Set user data directory if environment variable is provided
+        chrome_user_data_dir = os.getenv("CHROME_USER_DATA_DIR")
+        if chrome_user_data_dir:
+            chrome_options.add_argument(f"--user-data-dir={chrome_user_data_dir}")
+
         # Create temporary HTML file
         with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
             html_content = self.html_template.format(diagram_code=mermaid_code)
