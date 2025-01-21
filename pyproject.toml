@@ -49,6 +49,9 @@ include = ["LICENSE", "README.md", "pyproject.toml", "src", "tests"]
 [tool.hatch.build.targets.wheel]
 packages = ["src/pandoc_mermaid_selenium_filter"]
 
+[project.scripts]
+pandoc-mermaid-selenium-filter = "pandoc_mermaid_selenium_filter.filter:main"
+
 [tool.pytest.ini_options]
 addopts = "-v --cov=src/pandoc_mermaid_selenium_filter --cov-report=lcov:lcov.info --junitxml=pytest.xml"
 pythonpath = [".", "src"]

@@ -47,5 +47,9 @@ def mermaid(key, value, format, _):
                 return None
 
 
-if __name__ == "__main__":
+def main():
     toJSONFilter(mermaid)
+
+
+if __name__ == "__main__":
+    main()
