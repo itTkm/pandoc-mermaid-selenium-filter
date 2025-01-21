@@ -1,6 +1,6 @@
 [project]
 name = "pandoc-mermaid-selenium-filter"
-version = "0.2.0"
+version = "0.3.0"
 description = "A Pandoc filter that converts Mermaid code blocks to images using Selenium"
 long_description = "file: README.md"
 long_description_content_type = "text/markdown"
