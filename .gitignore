@@ -25,3 +25,4 @@ pytest-coverage.txt
 
 # Coverage
 .coverage
+lcov.info

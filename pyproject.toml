@@ -48,7 +48,7 @@ include = ["LICENSE", "README.md", "pyproject.toml", "src", "tests"]
 packages = ["src/pandoc_mermaid_selenium_filter"]
 
 [tool.pytest.ini_options]
-addopts = "-v --cov=src/pandoc_mermaid_selenium_filter --cov-report=term-missing --junitxml=pytest.xml"
+addopts = "-v --cov=src/pandoc_mermaid_selenium_filter --cov-report=lcov:lcov.info --junitxml=pytest.xml"
 pythonpath = [".", "src"]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
