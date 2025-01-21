@@ -24,7 +24,7 @@ Although many similar filters with the same functionality are already available,
 [pandoc]: https://pandoc.org/
 [filter]: https://pandoc.org/filters.html
 [Mermaid]: https://mermaid.js.org/
-[Selenium]: (https://www.selenium.dev/)
+[Selenium]: https://www.selenium.dev/
 [Puppeteer]: https://pptr.dev/
 [Chrome WebDriver]: (https://developer.chrome.com/docs/chromedriver?hl=ja)
 
