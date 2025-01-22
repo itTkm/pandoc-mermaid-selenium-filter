@@ -104,31 +104,23 @@ class MermaidConverter:
             f.write(html_content)
             temp_html_path = f.name
 
+        # Initialize driver variable
+        driver = None
+
         try:
             print(f"Starting conversion for: {output_path}", file=sys.stderr)
 
             # Initialize WebDriver
-            try:
-                print("Installing ChromeDriver...", file=sys.stderr)
-                driver_path = ChromeDriverManager().install()
-                print(f"ChromeDriver path: {driver_path}", file=sys.stderr)
+            print("Installing ChromeDriver...", file=sys.stderr)
+            driver_path = ChromeDriverManager().install()
+            print(f"ChromeDriver path: {driver_path}", file=sys.stderr)
 
-                print("Creating Chrome service...", file=sys.stderr)
-                service = Service(driver_path)
+            print("Creating Chrome service...", file=sys.stderr)
+            service = Service(driver_path)
 
-                print("Initializing Chrome WebDriver...", file=sys.stderr)
-                driver = webdriver.Chrome(service=service, options=chrome_options)
-                print("Chrome WebDriver initialized successfully", file=sys.stderr)
-
-            except Exception as e:
-                print(
-                    f"Failed to initialize Chrome WebDriver: {str(e)}", file=sys.stderr
-                )
-                print(f"Error type: {type(e).__name__}", file=sys.stderr)
-                import traceback
-
-                print(f"Traceback:\n{traceback.format_exc()}", file=sys.stderr)
-                raise
+            print("Initializing Chrome WebDriver...", file=sys.stderr)
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            print("Chrome WebDriver initialized successfully", file=sys.stderr)
 
             # Open HTML file
             print(f"Opening HTML file: {temp_html_path}", file=sys.stderr)
@@ -136,35 +128,42 @@ class MermaidConverter:
 
             # Wait for Mermaid diagram rendering to complete
             print("Waiting for mermaid element...", file=sys.stderr)
-            try:
-                svg_element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.TAG_NAME, "svg"))
-                )
+            svg_element = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "svg"))
+            )
 
-                # Check for error messages
-                error_element = driver.find_elements(By.CLASS_NAME, "error-icon")
-                if error_element:
-                    error_text = driver.find_element(By.CLASS_NAME, "error-text").text
-                    raise Exception(f"Mermaid syntax error: {error_text}")
+            # Check for error messages
+            error_element = driver.find_elements(By.CLASS_NAME, "error-icon")
+            if error_element:
+                error_text = driver.find_element(By.CLASS_NAME, "error-text").text
+                raise Exception(f"Mermaid syntax error: {error_text}")
 
-                # Take screenshot of svg element
-                print(f"Taking screenshot to: {output_path}", file=sys.stderr)
-                svg_element.screenshot(output_path)
+            # Take screenshot of svg element
+            print(f"Taking screenshot to: {output_path}", file=sys.stderr)
+            svg_element.screenshot(output_path)
 
-                if os.path.isfile(output_path):
-                    print(
-                        f"Screenshot saved successfully: {output_path}", file=sys.stderr
-                    )
-                else:
-                    print(f"Failed to save screenshot: {output_path}", file=sys.stderr)
-                    raise Exception("Failed to save screenshot")
-            except Exception as e:
-                print(f"Error processing diagram: {str(e)}", file=sys.stderr)
-                raise
+            if not os.path.isfile(output_path):
+                print(f"Failed to save screenshot: {output_path}", file=sys.stderr)
+                raise Exception("Failed to save screenshot")
+
+            print(f"Screenshot saved successfully: {output_path}", file=sys.stderr)
+
+        except Exception as e:
+            error_message = str(e)
+            print(f"Error during conversion: {error_message}", file=sys.stderr)
+            print(f"Error type: {type(e).__name__}", file=sys.stderr)
+            import traceback
+
+            print(f"Traceback:\n{traceback.format_exc()}", file=sys.stderr)
+            raise
 
         finally:
-            # Close browser
-            driver.quit()
+            # Close browser if it was initialized
+            if driver is not None:
+                try:
+                    driver.quit()
+                except Exception:
+                    pass
             # Save HTML file if requested
             if save_html:
                 html_output_path = output_path.rsplit(".", 1)[0] + ".html"
