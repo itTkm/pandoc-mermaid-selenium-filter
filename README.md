@@ -2,7 +2,7 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/pandoc-mermaid-selenium-filter)](https://pypi.org/project/pandoc-mermaid-selenium-filter/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pandoc-mermaid-selenium-filter)](https://pypi.org/project/pandoc-mermaid-selenium-filter/)
-[![GitHub License](https://img.shields.io/github/license/itTkm/pandoc-mermaid-selenium-filter)](<[./LICENSE](https://github.com/itTkm/pandoc-mermaid-selenium-filter/blob/main/LICENSE)>)
+[![GitHub License](https://img.shields.io/github/license/itTkm/pandoc-mermaid-selenium-filter)](https://github.com/itTkm/pandoc-mermaid-selenium-filter/blob/main/LICENSE)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/itTkm/pandoc-mermaid-selenium-filter/test.yml?branch=main)](https://github.com/itTkm/pandoc-mermaid-selenium-filter/actions/workflows/test.yml?query=branch%3Amain)
 [![Coverage Status](https://coveralls.io/repos/github/itTkm/pandoc-mermaid-selenium-filter/badge.svg?branch=main)](https://coveralls.io/github/itTkm/pandoc-mermaid-selenium-filter?branch=main)
 
@@ -97,4 +97,4 @@ uv run pytest
 
 ## License
 
-This library is licensed under the [MIT License](./LICENSE).
+This library is licensed under the [MIT License](https://github.com/itTkm/pandoc-mermaid-selenium-filter/blob/main/LICENSE).
