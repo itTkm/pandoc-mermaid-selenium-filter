@@ -1,4 +1,6 @@
 import os
+import shutil
+from unittest.mock import patch
 
 from src.pandoc_mermaid_selenium_filter.filter import mermaid
 
@@ -43,3 +45,43 @@ def test_mermaid_filter_with_invalid_code():
 
     result = mermaid(key, value, "html", None)
     assert result is None  # Returns None on error
+
+
+def test_mermaid_filter_with_nonexistent_directory(temp_dir):
+    """Test processing when output directory doesn't exist"""
+    # Remove the default mermaid-images directory if it exists
+    if os.path.exists("mermaid-images"):
+        shutil.rmtree("mermaid-images")
+
+    key = "CodeBlock"
+    value = [["", ["mermaid"], []], "graph TD; A-->B;"]
+
+    result = mermaid(key, value, "html", None)
+    assert result is not None
+    assert os.path.exists("mermaid-images")
+
+
+def test_mermaid_filter_with_file_creation_error(temp_dir):
+    """Test processing when file creation fails"""
+    key = "CodeBlock"
+    value = [["", ["mermaid"], []], "graph TD; A-->B;"]
+
+    # Mock convert_to_png to raise an exception
+    with patch(
+        "src.pandoc_mermaid_selenium_filter.mermaid_converter.MermaidConverter.convert_to_png"
+    ) as mock_convert:
+        mock_convert.side_effect = Exception("Failed to create file")
+        result = mermaid(key, value, "html", None)
+        assert result is None
+
+
+def test_mermaid_filter_with_general_exception(temp_dir):
+    """Test processing when a general exception occurs"""
+    key = "CodeBlock"
+    value = [["", ["mermaid"], []], "graph TD; A-->B;"]
+
+    # Mock os.path.isfile to raise an exception
+    with patch("os.path.isfile") as mock_isfile:
+        mock_isfile.side_effect = Exception("Unexpected error")
+        result = mermaid(key, value, "html", None)
+        assert result is None
