@@ -47,7 +47,7 @@ def test_mermaid_filter_with_invalid_code():
     assert result is None  # Returns None on error
 
 
-def test_mermaid_filter_with_nonexistent_directory(temp_dir):
+def test_mermaid_filter_with_nonexistent_directory():
     """Test processing when output directory doesn't exist"""
     # Remove the default mermaid-images directory if it exists
     if os.path.exists("mermaid-images"):
@@ -61,21 +61,7 @@ def test_mermaid_filter_with_nonexistent_directory(temp_dir):
     assert os.path.exists("mermaid-images")
 
 
-def test_mermaid_filter_with_file_creation_error(temp_dir):
-    """Test processing when file creation fails"""
-    key = "CodeBlock"
-    value = [["", ["mermaid"], []], "graph TD; A-->B;"]
-
-    # Mock convert_to_png to raise an exception
-    with patch(
-        "src.pandoc_mermaid_selenium_filter.mermaid_converter.MermaidConverter.convert_to_png"
-    ) as mock_convert:
-        mock_convert.side_effect = Exception("Failed to create file")
-        result = mermaid(key, value, "html", None)
-        assert result is None
-
-
-def test_mermaid_filter_with_general_exception(temp_dir):
+def test_mermaid_filter_with_general_exception():
     """Test processing when a general exception occurs"""
     key = "CodeBlock"
     value = [["", ["mermaid"], []], "graph TD; A-->B;"]
@@ -87,7 +73,7 @@ def test_mermaid_filter_with_general_exception(temp_dir):
         assert result is None
 
 
-def test_mermaid_filter_with_failed_image_generation(temp_dir):
+def test_mermaid_filter_with_failed_image_generation():
     """Test processing when image generation fails but file creation succeeds"""
     key = "CodeBlock"
     value = [["", ["mermaid"], []], "graph TD; A-->B;"]
@@ -99,21 +85,6 @@ def test_mermaid_filter_with_failed_image_generation(temp_dir):
         assert result is None
 
 
-# def test_mermaid_filter_with_directory_creation_error(temp_dir):
-#     """Test processing when directory creation fails"""
-#     key = "CodeBlock"
-#     value = [["", ["mermaid"], []], "graph TD; A-->B;"]
-
-#     with (
-#         patch("os.makedirs") as mock_makedirs,
-#         patch("pandocfilters.os.makedirs") as mock_pandoc_makedirs,
-#     ):
-#         mock_makedirs.side_effect = PermissionError("Permission denied")
-#         mock_pandoc_makedirs.return_value = None  # 成功を装う
-#         result = mermaid(key, value, "html", None)
-#         assert result is None
-
-
 def test_main_function():
     """Test the main function execution"""
     with patch("pandocfilters.toJSONFilters") as mock_filters:
@@ -123,7 +94,7 @@ def test_main_function():
         mock_filters.assert_called_once_with([mermaid])
 
 
-def test_mermaid_filter_with_file_generation_failure(temp_dir, capsys):
+def test_mermaid_filter_with_file_generation_failure(capsys):
     """Test processing when file generation fails without raising an exception"""
     key = "CodeBlock"
     value = [["", ["mermaid"], []], "graph TD; A-->B;"]
@@ -147,7 +118,7 @@ def test_mermaid_filter_with_file_generation_failure(temp_dir, capsys):
         assert "Failed to generate image:" in captured.err
 
 
-def test_mermaid_filter_with_general_error_message(temp_dir, capsys):
+def test_mermaid_filter_with_general_error_message(capsys):
     """Test error message output when a general exception occurs"""
     key = "CodeBlock"
     value = [["", ["mermaid"], []], "graph TD; A-->B;"]
