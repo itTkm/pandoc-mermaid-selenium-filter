@@ -173,23 +173,3 @@ class MermaidConverter:
                 print(f"HTML file saved: {html_output_path}", file=sys.stderr)
             # Delete temporary file
             os.unlink(temp_html_path)
-
-
-def main():
-    # Sample Mermaid diagram
-    sample_diagram = """
-    graph TD
-        A[Start] --> B{Condition}
-        B -->|Yes| C[Process 1]
-        B -->|No| D[Process 2]
-        C --> E[End]
-        D --> E
-    """
-
-    # Convert to PNG image
-    converter = MermaidConverter()
-    converter.convert_to_png(sample_diagram, "output.png")
-
-
-if __name__ == "__main__":
-    main()
