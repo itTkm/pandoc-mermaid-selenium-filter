@@ -133,3 +133,93 @@ def test_screenshot_save_failure(temp_dir):
             assert False, "Expected screenshot save exception"
         except Exception as e:
             assert "Failed to save screenshot" in str(e)
+
+
+def test_chrome_user_data_dir(temp_dir, monkeypatch):
+    """Test Chrome user data directory configuration"""
+    output_path = os.path.join(temp_dir, "test_output.png")
+    test_user_data_dir = "/path/to/chrome/user/data"
+    converter = MermaidConverter()
+
+    # Set environment variable
+    monkeypatch.setenv("CHROME_USER_DATA_DIR", test_user_data_dir)
+
+    with (
+        patch("selenium.webdriver.Chrome") as mock_chrome,
+        patch(
+            "webdriver_manager.chrome.ChromeDriverManager.install",
+            return_value="/path/to/chromedriver",
+        ),
+        patch("os.path.isfile", return_value=True),  # Mock successful file creation
+    ):
+        # Create mock driver
+        mock_driver = MagicMock()
+        mock_chrome.return_value = mock_driver
+
+        # Create mock SVG element
+        mock_svg = MagicMock()
+        mock_svg.screenshot = MagicMock()
+
+        # Mock find_elements to return empty list (no error icons)
+        mock_driver.find_elements.return_value = []
+
+        # Mock WebDriverWait.until to return mock SVG element
+        mock_driver.find_element.return_value = mock_svg
+
+        converter.convert_to_png("graph TD; A-->B;", output_path)
+
+        # Get the options passed to Chrome
+        options = mock_chrome.call_args[1]["options"]
+
+        # Verify user data directory was set
+        user_data_arg = f"--user-data-dir={test_user_data_dir}"
+        assert any(arg == user_data_arg for arg in options.arguments)
+
+        # Verify screenshot was taken
+        mock_svg.screenshot.assert_called_once_with(output_path)
+
+
+def test_error_with_traceback(temp_dir, capsys):
+    """Test error handling with traceback output"""
+    output_path = os.path.join(temp_dir, "test_output.png")
+    converter = MermaidConverter()
+
+    with patch("selenium.webdriver.Chrome", side_effect=Exception("Test error")):
+        try:
+            converter.convert_to_png("graph TD; A-->B;", output_path)
+            assert False, "Expected exception"
+        except Exception:
+            # Get stderr output
+            captured = capsys.readouterr()
+            # Verify error message and traceback in stderr
+            assert "Test error" in captured.err
+            assert "Traceback" in captured.err
+
+
+def test_driver_close_error(temp_dir):
+    """Test handling of driver close error"""
+    output_path = os.path.join(temp_dir, "test_output.png")
+    converter = MermaidConverter()
+
+    # Mock WebDriver
+    mock_driver = MagicMock()
+    mock_driver.quit.side_effect = Exception("Failed to close driver")
+
+    with (
+        patch("selenium.webdriver.Chrome", return_value=mock_driver),
+        patch("webdriver_manager.chrome.ChromeDriverManager.install"),
+        patch("selenium.webdriver.support.ui.WebDriverWait") as mock_wait,
+        patch("os.path.isfile", return_value=True),
+    ):
+        # Mock WebDriverWait to return SVG element
+        mock_svg = MagicMock()
+        mock_wait.return_value.until.return_value = mock_svg
+
+        # Mock find_elements to return empty list (no error icons)
+        mock_driver.find_elements.return_value = []
+
+        # Test should complete without raising an exception
+        converter.convert_to_png("graph TD; A-->B;", output_path)
+
+        # Verify driver.quit was called
+        mock_driver.quit.assert_called_once()
