@@ -95,8 +95,12 @@ class MermaidConverter:
 
         # Set user data directory if environment variable is provided
         chrome_user_data_dir = os.getenv("CHROME_USER_DATA_DIR")
+        print(f"CHROME_USER_DATA_DIR: {chrome_user_data_dir}", file=sys.stderr)
         if chrome_user_data_dir:
             chrome_options.add_argument(f"--user-data-dir={chrome_user_data_dir}")
+            print(
+                f"Add argument --user-data-dir={chrome_user_data_dir}", file=sys.stderr
+            )
 
         # Create temporary HTML file
         with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
