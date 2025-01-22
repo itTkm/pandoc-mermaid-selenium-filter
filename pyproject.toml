@@ -52,6 +52,12 @@ packages = ["src/pandoc_mermaid_selenium_filter"]
 [project.scripts]
 pandoc-mermaid-selenium-filter = "pandoc_mermaid_selenium_filter.filter:main"
 
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if __name__ == .__main__.:",
+]
+
 [tool.pytest.ini_options]
 addopts = "-v --cov=src/pandoc_mermaid_selenium_filter --cov-report=term-missing --cov-report=lcov:lcov.info --junitxml=pytest.xml"
 pythonpath = [".", "src"]
