@@ -14,78 +14,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 class MermaidConverter:
     def __init__(self):
-        self.html_template = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <script src="{static_file_path}/mermaid/dist/mermaid.min.js"></script>
-            <script>
-                mermaid.initialize({{
-                    startOnLoad: true,
-                    theme: "default",
-                }});
-                mermaid.registerIconPacks([
-                {{
-                    name: 'logos',
-                    loader: () =>
-                        fetch('{static_file_path}/@iconify-json/logos/icons.json').then((res) => res.json()),
-                    }},
-                    {{
-                    name: 'mdi',
-                    loader: () =>
-                        fetch('{static_file_path}/@iconify-json/mdi/icons.json').then((res) => res.json()),
-                    }},
-                ]);
-            </script>
-            <style>
-                body {{
-                    margin: 0;
-                    padding: 0;
-                    background: white;
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }}
-                #container {{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background: white;
-                    padding: 0;
-                    width: 100%;
-                    height: 100%;
-                    max-width: 100%;
-                    max-height: 100%;
-                }}
-                .mermaid {{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    height: 100%;
-                    max-width: 100%;
-                    max-height: 100%;
-                }}
-                svg {{
-                    padding: 1rem;
-                    width: fit-content;
-                    height: fit-content;
-                    max-width: 100%;
-                    max-height: 100%;
-                }}
-            </style>
-        </head>
-        <body>
-            <div id="container">
-                <div class="mermaid">
-                    {diagram_code}
-                </div>
-            </div>
-        </body>
-        </html>
-        """
+        template_path = files(
+            "pandoc_mermaid_selenium_filter.static.templates"
+        ).joinpath("mermaid.html")
+        with open(template_path, "r") as f:
+            self.html_template = f.read()
 
     def convert_to_png(
         self, mermaid_code: str, output_path: str, save_html: bool = False
@@ -117,7 +50,7 @@ class MermaidConverter:
             )
 
         # Create temporary HTML file
-        static_file_path = files("pandoc_mermaid_selenium_filter.static")
+        static_file_path = files("pandoc_mermaid_selenium_filter.static.npm")
         with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
             html_content = self.html_template.format(
                 diagram_code=mermaid_code, static_file_path=static_file_path

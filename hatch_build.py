@@ -19,7 +19,7 @@ class CustomBuildHook(BuildHookInterface):
             "https://cdn.jsdelivr.net/npm/@iconify-json/mdi/icons.json",
         ]
 
-        base_url = "https://cdn.jsdelivr.net/npm/"
+        base_url = "https://cdn.jsdelivr.net/"
         downloaded_files = []
 
         for url in url_list:
