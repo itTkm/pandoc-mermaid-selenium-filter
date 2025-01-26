@@ -37,6 +37,7 @@ jobs:
 
       - name: Run tests
         run: |
+          set -o pipefail
           uv run pytest | tee pytest-coverage.txt
 
       - name: Pytest coverage comment
