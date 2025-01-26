@@ -39,10 +39,6 @@ jobs:
         run: |
           uv build
 
-      - name: Install package for testing
-        run: |
-          pip install dist/pandoc_mermaid_selenium_filter-*.whl
-
       - name: Run tests
         run: |
           set -o pipefail
