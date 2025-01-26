@@ -279,9 +279,6 @@ requires-dist = [
     { name = "webdriver-manager", specifier = ">=4.0.2" },
 ]
 
-[package.metadata.requires-dev]
-dev = [{ name = "pandoc-mermaid-selenium-filter", editable = "." }]
-
 [[package]]
 name = "pandocfilters"
 version = "1.5.1"

@@ -69,11 +69,3 @@ addopts = "-v --cov=src/pandoc_mermaid_selenium_filter --cov-report=term-missing
 pythonpath = [".", "src"]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-
-[tool.uv.sources]
-pandoc-mermaid-selenium-filter = { workspace = true }
-
-[dependency-groups]
-dev = [
-    "pandoc-mermaid-selenium-filter",
-]
