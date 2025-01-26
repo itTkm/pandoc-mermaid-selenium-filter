@@ -11,6 +11,8 @@ graph TD
     D --> E
 ```
 
+\newpage
+
 Here's a sequence diagram example:
 
 ```mermaid
@@ -24,6 +26,8 @@ sequenceDiagram
     Database-->>Server: Return Result
     Server-->>Browser: Send Response
 ```
+
+\newpage
 
 Here's a class diagram example:
 
@@ -46,6 +50,8 @@ classDiagram
     Animal <|-- Cat
 ```
 
+\newpage
+
 Here's a architecture diagram example:
 
 ```mermaid
@@ -62,6 +68,8 @@ architecture-beta
     disk2:T -- B:db
 ```
 
+\newpage
+
 Here's a architecture diagram with [@iconify-json/logos](https://icon-sets.iconify.design/logos/) icons example:
 
 ```mermaid
@@ -77,6 +85,8 @@ architecture-beta
     disk1:T -- B:server
     disk2:T -- B:db
 ```
+
+\newpage
 
 Here's a architecture diagram with [@iconify-json/mdi](https://icon-sets.iconify.design/mdi/) icons example:
 
