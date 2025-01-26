@@ -1,6 +1,7 @@
 import os
 import sys
 import tempfile
+import time
 from importlib.resources import files
 
 from selenium import webdriver
@@ -91,6 +92,9 @@ class MermaidConverter:
             if error_element:
                 error_text = driver.find_element(By.CLASS_NAME, "error-text").text
                 raise Exception(f"Mermaid syntax error: {error_text}")
+
+            # Wait for 0.1 seconds to ensure rendering is complete
+            time.sleep(0.1)
 
             # Take screenshot of svg element
             print(f"Taking screenshot to: {output_path}", file=sys.stderr)
