@@ -13,9 +13,28 @@
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "cSpell.words": [
+    "addopts",
+    "documentclass",
+    "harddisk",
+    "iconify",
     "junitxml",
+    "keyvals",
+    "langjapanese",
+    "ltjarticle",
+    "lualatex",
+    "luatexjapresetoptions",
     "MishaKav",
+    "newpage",
+    "noto",
     "pandoc",
-    "pytest"
+    "pandocfilters",
+    "pycache",
+    "pyproject",
+    "pytest",
+    "pythonpath",
+    "rasterizer",
+    "sdist",
+    "testpaths",
+    "venv"
   ]
 }
