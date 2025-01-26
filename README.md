@@ -8,6 +8,8 @@
 
 Provides a feature available as a [filter] for the widely known universal document conversion tool [Pandoc], which converts code blocks written in [Mermaid] syntax within Markdown documents into images.
 
+Supports [Architecture Diagrams] introduced in Mermaid v11.1.0. Additionally, icon sets from [iconify.design], including [SVG Logos] and [Material Design Icons], are available for use.
+
 The conversion process follows these steps:
 
 1. Detect code blocks with the `mermaid` class specified
@@ -24,6 +26,10 @@ Although many similar filters with the same functionality are already available,
 [pandoc]: https://pandoc.org/
 [filter]: https://pandoc.org/filters.html
 [Mermaid]: https://mermaid.js.org/
+[Architecture Diagrams]: https://mermaid.js.org/syntax/architecture.html
+[iconify.design]: https://iconify.design/
+[SVG Logos]: https://icon-sets.iconify.design/logos/
+[Material Design Icons]: https://icon-sets.iconify.design/mdi/
 [Selenium]: https://www.selenium.dev/
 [Puppeteer]: https://pptr.dev/
 [Chrome WebDriver]: (https://developer.chrome.com/docs/chromedriver?hl=ja)
@@ -39,6 +45,10 @@ Although many similar filters with the same functionality are already available,
 2. When using Mermaid syntax in your Markdown file, use a code block with the `mermaid` class specified as follows:
 
    ````markdown
+   # Testing Mermaid Filter
+
+   Here's a simple flowchart example:
+
    ```mermaid
    graph TD
        A[Start] --> B{Condition}
@@ -76,6 +86,50 @@ Although many similar filters with the same functionality are already available,
    >    -V documentclass=ltjarticle \
    >    -V luatexjapresetoptions=fonts-noto-cjk
    > ```
+
+## Architecture Diagrams
+
+In the context of mermaid-js, the architecture diagram is used to show the relationship between services and resources commonly found within the Cloud or CI/CD deployments. In an architecture diagram, services (nodes) are connected by edges. Related services can be placed within groups to better illustrate how they are organized.
+
+The example code as follows:
+
+````markdown
+```mermaid
+architecture-beta
+    group api(cloud)[API]
+
+    service db(database)[Database] in api
+    service disk1(disk)[Storage] in api
+    service disk2(disk)[Storage] in api
+    service server(server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
+````
+
+## Icons
+
+By default, architecture diagram supports the following icons: `cloud`, `database`, `disk`, `internet`, `server`. This package provides access to the [SVG Logos] and [Material Design Icons] icon sets offered by [iconify.design]. They can be used in the architecture diagram by using the format `logos:icon-name` or `mdi:icon-name`.
+
+The example code will change as follows:
+
+````markdown
+```mermaid
+architecture-beta
+    group api(logos:aws-lambda)[API]
+
+    service db(logos:aws-aurora)[Database] in api
+    service disk1(logos:aws-glacier)[Storage] in api
+    service disk2(logos:aws-s3)[Storage] in api
+    service server(logos:aws-ec2)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
+````
 
 ## Developer Information
 

@@ -1,6 +1,7 @@
 import os
 import sys
 import tempfile
+from importlib.resources import files
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -17,12 +18,24 @@ class MermaidConverter:
         <!DOCTYPE html>
         <html>
         <head>
-            <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+            <script src="{static_file_path}/mermaid/dist/mermaid.min.js"></script>
             <script>
                 mermaid.initialize({{
                     startOnLoad: true,
-                    theme: 'default'
+                    theme: "default",
                 }});
+                mermaid.registerIconPacks([
+                {{
+                    name: 'logos',
+                    loader: () =>
+                        fetch('{static_file_path}/@iconify-json/logos/icons.json').then((res) => res.json()),
+                    }},
+                    {{
+                    name: 'mdi',
+                    loader: () =>
+                        fetch('{static_file_path}/@iconify-json/mdi/icons.json').then((res) => res.json()),
+                    }},
+                ]);
             </script>
             <style>
                 body {{
@@ -92,6 +105,7 @@ class MermaidConverter:
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--window-size=1600,1200")
         chrome_options.add_argument("--disable-software-rasterizer")
+        chrome_options.add_argument("--disable-web-security")  # Ignore CORS policy
 
         # Set user data directory if environment variable is provided
         chrome_user_data_dir = os.getenv("CHROME_USER_DATA_DIR")
@@ -103,8 +117,11 @@ class MermaidConverter:
             )
 
         # Create temporary HTML file
+        static_file_path = files("pandoc_mermaid_selenium_filter.static")
         with tempfile.NamedTemporaryFile(mode="w", suffix=".html", delete=False) as f:
-            html_content = self.html_template.format(diagram_code=mermaid_code)
+            html_content = self.html_template.format(
+                diagram_code=mermaid_code, static_file_path=static_file_path
+            )
             f.write(html_content)
             temp_html_path = f.name
 

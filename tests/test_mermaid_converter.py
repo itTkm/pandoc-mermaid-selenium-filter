@@ -223,3 +223,51 @@ def test_driver_close_error(temp_dir):
 
         # Verify driver.quit was called
         mock_driver.quit.assert_called_once()
+
+
+def test_convert_to_png_with_logos(temp_dir, sample_mermaid_code_with_logos):
+    """Test PNG conversion with @iconify-json/logos icons"""
+    output_path = os.path.join(temp_dir, "test_output_logos.png")
+    converter = MermaidConverter()
+
+    # Execute PNG conversion
+    converter.convert_to_png(sample_mermaid_code_with_logos, output_path)
+
+    # Verify file was generated
+    assert os.path.exists(output_path)
+    assert os.path.getsize(output_path) > 0
+
+    # Execute PNG conversion with HTML save option
+    html_output_path = os.path.join(temp_dir, "test_output_logos_with_html.png")
+    converter.convert_to_png(
+        sample_mermaid_code_with_logos, html_output_path, save_html=True
+    )
+
+    # Verify both PNG and HTML files were generated
+    assert os.path.exists(html_output_path)
+    html_path = html_output_path.rsplit(".", 1)[0] + ".html"
+    assert os.path.exists(html_path)
+
+
+def test_convert_to_png_with_mdi(temp_dir, sample_mermaid_code_with_mdi):
+    """Test PNG conversion with @iconify-json/mdi icons"""
+    output_path = os.path.join(temp_dir, "test_output_mdi.png")
+    converter = MermaidConverter()
+
+    # Execute PNG conversion
+    converter.convert_to_png(sample_mermaid_code_with_mdi, output_path)
+
+    # Verify file was generated
+    assert os.path.exists(output_path)
+    assert os.path.getsize(output_path) > 0
+
+    # Execute PNG conversion with HTML save option
+    html_output_path = os.path.join(temp_dir, "test_output_mdi_with_html.png")
+    converter.convert_to_png(
+        sample_mermaid_code_with_mdi, html_output_path, save_html=True
+    )
+
+    # Verify both PNG and HTML files were generated
+    assert os.path.exists(html_output_path)
+    html_path = html_output_path.rsplit(".", 1)[0] + ".html"
+    assert os.path.exists(html_path)

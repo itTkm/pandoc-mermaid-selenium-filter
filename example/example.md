@@ -45,3 +45,51 @@ classDiagram
     Animal <|-- Dog
     Animal <|-- Cat
 ```
+
+Here's a architecture diagram example:
+
+```mermaid
+architecture-beta
+    group api(cloud)[API]
+
+    service db(database)[Database] in api
+    service disk1(disk)[Storage] in api
+    service disk2(disk)[Storage] in api
+    service server(server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
+
+Here's a architecture diagram with [@iconify-json/logos](https://icon-sets.iconify.design/logos/) icons example:
+
+```mermaid
+architecture-beta
+    group api(logos:aws-lambda)[API]
+
+    service db(logos:aws-aurora)[Database] in api
+    service disk1(logos:aws-glacier)[Storage] in api
+    service disk2(logos:aws-s3)[Storage] in api
+    service server(logos:aws-ec2)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
+
+Here's a architecture diagram with [@iconify-json/mdi](https://icon-sets.iconify.design/mdi/) icons example:
+
+```mermaid
+architecture-beta
+    group api(mdi:api)[API]
+
+    service db(mdi:database)[Database] in api
+    service disk1(mdi:harddisk)[Storage] in api
+    service disk2(mdi:harddisk)[Storage] in api
+    service server(mdi:server)[Server] in api
+
+    db:L -- R:server
+    disk1:T -- B:server
+    disk2:T -- B:db
+```
