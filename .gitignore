@@ -29,3 +29,4 @@ lcov.info
 
 # External static files
 src/pandoc_mermaid_selenium_filter/static/npm/*/
+!src/pandoc_mermaid_selenium_filter/static/templates/mermaid.html
