@@ -141,6 +141,16 @@ You can install all development dependencies with the following command:
 uv sync --extra dev
 ```
 
+### Build
+
+You can build this package using the following command. During the build process, the custom hooks will download the latest source code for [Mermaid], as well as the [SVG Logos] and [Material Design Icons] icon sets, from [jsDelivr].
+
+[jsDelivr]: https://www.jsdelivr.com/
+
+```bash
+uv build
+```
+
 ### Testing
 
 You can run tests with the following command:
