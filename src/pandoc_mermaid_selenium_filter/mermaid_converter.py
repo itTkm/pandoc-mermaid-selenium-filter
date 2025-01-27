@@ -81,6 +81,9 @@ class MermaidConverter:
             print(f"Opening HTML file: {temp_html_path}", file=sys.stderr)
             driver.get(f"file://{temp_html_path}")
 
+            # Wait for 0.1 seconds to ensure rendering is complete
+            time.sleep(0.1)
+
             # Wait for Mermaid diagram rendering to complete
             print("Waiting for mermaid element...", file=sys.stderr)
             svg_element = WebDriverWait(driver, 10).until(
@@ -92,9 +95,6 @@ class MermaidConverter:
             if error_element:
                 error_text = driver.find_element(By.CLASS_NAME, "error-text").text
                 raise Exception(f"Mermaid syntax error: {error_text}")
-
-            # Wait for 0.1 seconds to ensure rendering is complete
-            time.sleep(0.1)
 
             # Take screenshot of svg element
             print(f"Taking screenshot to: {output_path}", file=sys.stderr)
