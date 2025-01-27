@@ -73,19 +73,19 @@ Although many similar filters with the same functionality are already available,
       -o example/output.pdf
    ```
 
-   > [!NOTE]
-   >
-   > For generating PDFs with Japanese text, add the following options.
-   > Note that you need to install `collection-langjapanese` beforehand to add Japanese support to Pandoc.
-   >
-   > ```bash
-   > pandoc example/example.md \
-   >    --filter pandoc-mermaid-selenium-filter \
-   >    -o example/output.pdf \
-   >    --pdf-engine lualatex \
-   >    -V documentclass=ltjarticle \
-   >    -V luatexjapresetoptions=fonts-noto-cjk
-   > ```
+> [!NOTE]
+>
+> For generating PDFs with Japanese text, add the following options.
+> Note that you need to install `collection-langjapanese` beforehand to add Japanese support to Pandoc.
+>
+> ```bash
+> pandoc example/example.md \
+>    --filter pandoc-mermaid-selenium-filter \
+>    -o example/output.pdf \
+>    --pdf-engine lualatex \
+>    -V documentclass=ltjarticle \
+>    -V luatexjapresetoptions=fonts-noto-cjk
+> ```
 
 ## Architecture Diagrams
 
